@@ -10,8 +10,7 @@ jobs:
   build:
     working_directory: ~/mern-starter
     docker:
-      - image: circleci/node:10.16.3
-      - image: mongo:4.2.0
+      - image: circleci/node:14.15.4
     steps:
       - checkout
       - run:
@@ -22,3 +21,7 @@ jobs:
       - run:
           name: install-npm-wee
           command: npm install
+       - save_cache:
+           key: dependency-cache-{{ checksum "package-lock.json" }}
+           paths:
+             - ./node_modules
